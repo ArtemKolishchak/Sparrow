@@ -6,10 +6,12 @@
  *
  * @package Sparoow
  */
+?>
 
-if ( ! is_active_sidebar( 'post-sidebar' ) ) {
-   return;
-}
+<?php 
+	if ( ! is_active_sidebar( 'post-sidebar' ) ) {
+	   return;
+	}
 ?>
 
 <aside id="sidebar">

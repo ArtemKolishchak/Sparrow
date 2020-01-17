@@ -1,3 +1,13 @@
+
+# Исправить!!!
+
+1. Исправить ошибки в консоле. Разобраться с подключением шрифтов. Убрать ссылку с логотипа на домашней странице. Подогнать стили виджетов категорий и поиска. А также добавить виджет галереи.
+
+2. Сделать коректирование шаблонов: page-portfolio.php, single-portfolio.php, taxonomy-skills.php. А именно: ввывод контента, динамическое подхватывание и вывод.
+---
+---
+---
+
 # Sparrow
 
 wordpress-theme
@@ -12,7 +22,17 @@ wordpress-theme
 
 + [WordPress](https://wordpress.org);
 
++ [Theme Customization API](https://codex.wordpress.org/Theme_Customization_API);
+
++ [Developer Resources: Dashicons](https://developer.wordpress.org/resource/dashicons/#welcome-widgets-menus);
+
 + [UNDERSCORES BASED THEME](https://underscores.me);
+
++ [Advanced Custom Fields](https://www.advancedcustomfields.com);
+
++ [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields);
+
++ [TGM Plugin Activation](http://tgmpluginactivation.com);
 
 ---
 
@@ -36,7 +56,7 @@ wordpress-theme
 
 ---
 
-### 2.
+### 2. Подключаем:
 
 Подключает файл шаблона header.php (шапку).
 
@@ -46,7 +66,7 @@ wordpress-theme
 
 + [get_sidebar()](https://wp-kama.ru/function/get_sidebar);
 
-Подключаетфайл footer.php из шаблона (темы).
+Подключает файл footer.php из шаблона (темы).
 
 + [get_footer()](https://wp-kama.ru/function/get_footer);
 
@@ -67,7 +87,7 @@ wp_head() - это Тег шаблона, который нужно вставл
 ---
 ---
 
-### 3.
+### 3. Подключаем js и css файлы:
 
 + [language_attributes()](https://wp-kama.ru/function/language_attributes);
 
@@ -113,7 +133,7 @@ wp_head() - это Тег шаблона, который нужно вставл
 
 ---
 
-### 4.
+### 4. Проверяем и по необходимости подключаем дополнительные возможности темы:
 
 + [after_setup_theme()](https://wp-kama.ru/hook/after_setup_theme);
 
@@ -198,4 +218,40 @@ wp_head() - это Тег шаблона, который нужно вставл
 
 + [the_posts_pagination()](https://wp-kama.ru/function/the_posts_pagination) - Выводит на экран ссылки пагинации на след./пред. сет постов. Используется на страницах архивов (рубрики, метки, ...).
 
----
+### 5. Соднание своего типа записей:
+
++ [register_post_type()](https://wp-kama.ru/function/register_post_type) - Создает новый тип записи или изменяет имеющийся.
+
++ [get_posts()](https://wp-kama.ru/function/get_posts) - Получает записи (посты, страницы, вложения) из базы данных по указанным критериям. Можно выбрать любые посты и отсортировать их как угодно.
+
++ [init](https://wp-kama.ru/hook/init)
+
+### 6. Создаем опции в customize темы с помощью Theme Customization API:
+
+cusromizer.php
+
++ [Theme Customization API](https://codex.wordpress.org/Theme_Customization_API);
+
+[Class Reference/WP Customize Manager/add control](https://codex.wordpress.org/Class_Reference%5CWP_Customize_Manager%5Cadd_control);
+
+### 7. Добавляем произвольные поля с помощью Advanced Custom Fields:
+
+the_field();
+
++ [Advanced Custom Fields](https://www.advancedcustomfields.com);
+
++ [Documentation ACF](https://www.advancedcustomfields.com/resources);
+
+### 8. Регистрируруем свой тип таксономии: 
+
++ [register_taxonomy()](https://wp-kama.ru/function/register_taxonomy);
+
+Добавляет (регистрирует) новую (пользовательскую) таксономию. Можно перезаписать существующую таксономию.
+
+Функцию желательно вызывать во время события [init](https://wp-kama.ru/hook/init).
+
++ [the_terms()](https://wp-kama.ru/function/the_terms) - Выводит список ссылок на термины (элементы таксономии), относящиеся к указанному посту.
+
++[register_taxonomy_for_object_type()](https://wp-kama.ru/function/register_taxonomy_for_object_type) - Привязывает (добавляет) указанную таксономию к указанному типу записи (поста).
+
+Используется, чтобы к типу поста добавить таксономию, например добавить метки к постоянным страницам. 

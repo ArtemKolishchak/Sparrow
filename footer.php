@@ -9,7 +9,6 @@
  * @package Sparoow
  */
 ?>
-
 		<!-- Footer -->
    		<footer>
 	      	<div class="row">
@@ -26,17 +25,36 @@
 	               	?>
 	             
 	            	<ul class="footer-social">
-		               <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-		               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-		               <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-		               <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-		               <li><a href="#"><i class="fa fa-skype"></i></a></li>
-		               <li><a href="#"><i class="fa fa-rss"></i></a></li>
+
+						<?php if(get_theme_mod( 'facebook_social' ) != ''):?>						
+		               	<li><a href="<?php echo get_theme_mod('facebook_social'); ?>"><i class="fa fa-facebook"></i></a></li>
+		               	<?php endif?>
+
+						<?php if(get_theme_mod( 'twitter_social' ) != ''):?>
+		               	<li><a href="<?php echo get_theme_mod('twitter_social'); ?>"><i class="fa fa-twitter"></i></a></li>
+		               	<?php endif?>
+
+						<?php if(get_theme_mod( 'google_plus_social' ) != ''):?>
+		               	<li><a href="<?php echo get_theme_mod('google_plus_social_social'); ?>"><i class="fa fa-google-plus"></i></a></li>
+		               	<?php endif?>
+
+						<?php if(get_theme_mod( 'linkedin_social' ) != ''):?>
+		               	<li><a href="<?php echo get_theme_mod('linkedin_social'); ?>"><i class="fa fa-linkedin"></i></a></li>
+		               	<?php endif?>
+
+						<?php if(get_theme_mod( 'skype_social' ) != ''):?>
+		               	<li><a href="<?php echo get_theme_mod('skype_social'); ?>"><i class="fa fa-skype"></i></a></li>
+		               	<?php endif?>
+
+						<?php if(get_theme_mod( 'noname_social' ) != ''):?>
+		               	<li><a href="<?php echo get_theme_mod('noname_social'); ?>"><i class="fa fa-rss"></i></a></li>
+		               	<?php endif?>
+
 	            	</ul>
 
 	            	<ul class="copyright">
-		               <li>Copyright &copy; 2014 Sparrow</li> 
-		               <li>Design by <a href="http://www.styleshout.com/">Styleshout</a></li>            
+		               <li><?php echo get_theme_mod('footer_copy_1'); ?></li> 
+		               <li><?php echo get_theme_mod('footer_copy_2'); ?></li>            
 		            </ul>
 	         	</div><!-- .twelve columns -->
 

@@ -19,6 +19,7 @@
  * Filter the excerpt "read more" string.
  * Filter the "read more" excerpt string link to the post.
  * Post Pagination
+ * Register a custom post type called "portfolio".
  */
 
 if ( ! function_exists( 'sparrow_setup' ) ) :
@@ -54,8 +55,9 @@ if ( ! function_exists( 'sparrow_setup' ) ) :
 		 *
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
-		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'post-thumbnails', array( 'post', 'portfolio' ));
 		set_post_thumbnail_size( 640, 246.14 );
+		add_image_size( 'portfolio', 280, 292, true );
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
@@ -211,16 +213,6 @@ add_action( 'wp_enqueue_scripts', 'sparrow_styles' );
     //Init
     wp_enqueue_script( 'init-js', get_template_directory_uri() . '/assets/js/init.js', array( 'jquery' ), '', true );
 
-/*
-    //[if lt IE 9]
-    wp_enqueue_script( 'html5shiv', 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js', array( 'jquery' ), '', true);
-    wp_enqueue_script( 'respond', 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js', array( 'jquery' ), '', true);
-    
-    wp_script_add_data('html5shiv', 'conditional', 'lt IE 9');
-    wp_script_add_data('respond', 'conditional', 'lt IE 9');
-    //[endif]
-*/
-
 	wp_enqueue_script( 'sparrow-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
 	wp_enqueue_script( 'sparrow-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
@@ -257,6 +249,11 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/**
+ * TGM Plugin Activation
+ */
+require get_template_directory() . '/inc/init-tgm-plugin-activation.php';
 
 //Post
 
@@ -313,3 +310,74 @@ function my_navigation_template( $template, $class ){
 the_posts_pagination( array(
 	'end_size' => 2,
 ) ); 
+
+/**
+ * Register a custom post type called "portfolio".
+ *
+ * @see get_post_type_labels() for label keys.
+ */
+add_action('init', 'register_post_types');
+function register_post_types(){
+	register_post_type('portfolio', array(
+			'label'              => null,
+			'labels'             => array(
+			'name'               => 'Portfolio', 
+			'singular_name'      => 'Portfolio', 
+			'add_new'            => 'Add New',
+			'add_new_item'       => 'Add New Work',
+			'edit_item'          => 'Edit Work',
+			'new_item'           => 'New Work',
+			'view_item'          => 'View Work',
+			'search_items'       => 'Search Work',
+			'not_found'          => 'No Work found',
+			'not_found_in_trash' => 'No Work found in Trash',
+			'parent_item_colon'  => '',
+			'menu_name'          => 'Portfolio'
+
+		  ),
+		'description'		 => 'This is our works in portfolio',
+		'public'             => true,
+		'publicly_queryable' => true,
+		'exclude_from_search'=> false,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'show_in_admin_bar'  => true, 
+		'show_in_nav_menus'  => true,
+		'show_in_rest' 		 => true,
+		'rest_base'          => null, 
+		'menu_position'      => 4,
+		'menu_icon'          => 'dashicons-format-gallery',
+		'supports'           => array('title','editor','author','thumbnail','excerpt','comments'),
+		'taxonomies'         => array('skills'),
+	) );
+}
+
+//Register a custom Taxonomy
+add_action( 'init', 'create_taxonomy' );
+function create_taxonomy(){
+
+	//wp-kama.ru/function/get_taxonomy_labels
+	register_taxonomy( 'skills', array( 'portfolio' ) , array(
+		'label'                 => '',  //$labels->name
+		'labels'                => array(
+			'name'              => 'Skills',
+			'singular_name'     => 'Skill',
+			'search_items'      => 'Search Skils',
+			'all_items'         => 'All Skills',
+			'view_item '        => 'View Skill',
+			'parent_item'       => 'Parent Skill',
+			'parent_item_colon' => 'Parent Skill:',
+			'edit_item'         => 'Edit GSkill',
+			'update_item'       => 'Update Skill',
+			'add_new_item'      => 'Add New Skill',
+			'new_item_name'     => 'New Skill Name',
+			'menu_name'         => 'Skills',
+		),
+		'description'           => '',
+		'public'                => true,
+		'hierarchical'          => false,
+		'rewrite'               => true,
+		'show_in_rest'          => true,
+	) );
+}
+
